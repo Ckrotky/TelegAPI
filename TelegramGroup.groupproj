@@ -6,20 +6,8 @@
         <Projects Include="Install\TelegaPiBot.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="examples\TelegaPingPong\TelegaPingPong.dproj">
-            <Dependencies/>
-        </Projects>
-        <Projects Include="examples\PluginWelcom\WelcomBot.dproj">
-            <Dependencies/>
-        </Projects>
-        <Projects Include="examples\PluginCalculator\CalculatorBot.dproj">
-            <Dependencies/>
-        </Projects>
-        <Projects Include="examples\PluginWhoIs\PluginWhoIsDomain.dproj">
-            <Dependencies/>
-        </Projects>
-        <Projects Include="examples\UniversalDemo\UniversalBot.dproj">
-            <Dependencies/>
+        <Projects Include="..\Embarcadero\Studio\Projects\Project4.dproj">
+            <Dependencies>Install\TelegaPiBot.dproj</Dependencies>
         </Projects>
     </ItemGroup>
     <ProjectExtensions>
@@ -38,59 +26,23 @@
     <Target Name="TelegaPiBot:Make">
         <MSBuild Projects="Install\TelegaPiBot.dproj" Targets="Make"/>
     </Target>
-    <Target Name="TelegaPingPong">
-        <MSBuild Projects="examples\TelegaPingPong\TelegaPingPong.dproj"/>
+    <Target Name="Project4" DependsOnTargets="TelegaPiBot">
+        <MSBuild Projects="..\Embarcadero\Studio\Projects\Project4.dproj"/>
     </Target>
-    <Target Name="TelegaPingPong:Clean">
-        <MSBuild Projects="examples\TelegaPingPong\TelegaPingPong.dproj" Targets="Clean"/>
+    <Target Name="Project4:Clean" DependsOnTargets="TelegaPiBot:Clean">
+        <MSBuild Projects="..\Embarcadero\Studio\Projects\Project4.dproj" Targets="Clean"/>
     </Target>
-    <Target Name="TelegaPingPong:Make">
-        <MSBuild Projects="examples\TelegaPingPong\TelegaPingPong.dproj" Targets="Make"/>
-    </Target>
-    <Target Name="WelcomBot">
-        <MSBuild Projects="examples\PluginWelcom\WelcomBot.dproj"/>
-    </Target>
-    <Target Name="WelcomBot:Clean">
-        <MSBuild Projects="examples\PluginWelcom\WelcomBot.dproj" Targets="Clean"/>
-    </Target>
-    <Target Name="WelcomBot:Make">
-        <MSBuild Projects="examples\PluginWelcom\WelcomBot.dproj" Targets="Make"/>
-    </Target>
-    <Target Name="CalculatorBot">
-        <MSBuild Projects="examples\PluginCalculator\CalculatorBot.dproj"/>
-    </Target>
-    <Target Name="CalculatorBot:Clean">
-        <MSBuild Projects="examples\PluginCalculator\CalculatorBot.dproj" Targets="Clean"/>
-    </Target>
-    <Target Name="CalculatorBot:Make">
-        <MSBuild Projects="examples\PluginCalculator\CalculatorBot.dproj" Targets="Make"/>
-    </Target>
-    <Target Name="PluginWhoIsDomain">
-        <MSBuild Projects="examples\PluginWhoIs\PluginWhoIsDomain.dproj"/>
-    </Target>
-    <Target Name="PluginWhoIsDomain:Clean">
-        <MSBuild Projects="examples\PluginWhoIs\PluginWhoIsDomain.dproj" Targets="Clean"/>
-    </Target>
-    <Target Name="PluginWhoIsDomain:Make">
-        <MSBuild Projects="examples\PluginWhoIs\PluginWhoIsDomain.dproj" Targets="Make"/>
-    </Target>
-    <Target Name="UniversalBot">
-        <MSBuild Projects="examples\UniversalDemo\UniversalBot.dproj"/>
-    </Target>
-    <Target Name="UniversalBot:Clean">
-        <MSBuild Projects="examples\UniversalDemo\UniversalBot.dproj" Targets="Clean"/>
-    </Target>
-    <Target Name="UniversalBot:Make">
-        <MSBuild Projects="examples\UniversalDemo\UniversalBot.dproj" Targets="Make"/>
+    <Target Name="Project4:Make" DependsOnTargets="TelegaPiBot:Make">
+        <MSBuild Projects="..\Embarcadero\Studio\Projects\Project4.dproj" Targets="Make"/>
     </Target>
     <Target Name="Build">
-        <CallTarget Targets="TelegaPiBot;TelegaPingPong;WelcomBot;CalculatorBot;PluginWhoIsDomain;UniversalBot"/>
+        <CallTarget Targets="TelegaPiBot;Project4"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="TelegaPiBot:Clean;TelegaPingPong:Clean;WelcomBot:Clean;CalculatorBot:Clean;PluginWhoIsDomain:Clean;UniversalBot:Clean"/>
+        <CallTarget Targets="TelegaPiBot:Clean;Project4:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="TelegaPiBot:Make;TelegaPingPong:Make;WelcomBot:Make;CalculatorBot:Make;PluginWhoIsDomain:Make;UniversalBot:Make"/>
+        <CallTarget Targets="TelegaPiBot:Make;Project4:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>
