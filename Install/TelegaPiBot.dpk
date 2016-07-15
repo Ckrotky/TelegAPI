@@ -30,8 +30,7 @@ package TelegaPiBot;
 {$IMPLICITBUILD ON}
 
 requires
-  rtl,
-  dbrtl;
+  rtl;
 
 contains
   TelegAPI.Bot in '..\Source\TelegAPI.Bot.pas',

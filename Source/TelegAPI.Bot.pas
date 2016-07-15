@@ -460,6 +460,8 @@ end;
 
 function TTelegramBot.API<T>(const Method: String;
   Const Parameters: TDictionary<String, TValue>): T;
+Var
+  TELEGA_BASE_URL: String;
 var
   Http: THTTPClient;
   lHttpResp: IHTTPResponse;
@@ -467,17 +469,12 @@ var
 begin
   Http := THTTPClient.Create;
   try
+    TELEGA_BASE_URL := 'https://api.telegram.org/bot' + FToken + '/' + Method;
     // Преобразовуем параметры в строку, если нужно
     if Assigned(Parameters) then
-    Begin
-      lHttpResp := Http.Post('https://api.telegram.org/bot' + FToken + '/' +
-        Method, ParamsToFormData(Parameters));
-    End
+      lHttpResp := Http.Post(TELEGA_BASE_URL, ParamsToFormData(Parameters))
     else
-    Begin
-      lHttpResp := Http.Get('https://api.telegram.org/bot' + FToken + '/'
-        + Method);
-    End;
+      lHttpResp := Http.Get(TELEGA_BASE_URL);
     if lHttpResp.StatusCode <> 200 then
     begin
       if Assigned(OnError) then
@@ -494,8 +491,8 @@ begin
     end;
     Result := Response.ResultObject;
   finally
-    Http.Free;
-    Response.Free;
+    FreeAndNil(Http);
+    FreeAndNil(Response);
   end;
 end;
 
